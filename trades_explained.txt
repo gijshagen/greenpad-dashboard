@@ -1,0 +1,79 @@
+Schematische weergave van de trades map
+
+trades/                            <-- Django app: feature module "trades"
+│
+├── __init__.py                    <-- Zegt: dit is een Python package
+│
+├── admin.py                       <-- Admin-UI configuratie
+│   - Registreert Trade in de Django admin
+│   - Bepaalt kolommen, filters, search in admin interface
+│
+├── apps.py                        <-- App-config
+│   - Metadata over de app (naam, label)
+│   - Django gebruikt dit intern
+│
+├── migrations/                    <-- Database schema veranderingen
+│   ├── __init__.py
+│   ├── 0001_initial.py            <-- Eerste keer Trade model aangemaakt
+│   ├── 0002_*.py                  <-- Latere wijzigingen (bijv. IBKR toegevoegd)
+│   └── 0003_*.py                  <-- Default broker veranderd naar IBKR
+│   - Deze bestanden beschrijven hoe de database moet veranderen
+│   - Worden uitgevoerd met `makemigrations` + `migrate`
+│
+├── models.py                      <-- Data model (ORM → database tabellen)
+│   - Klasse Trade:
+│       - broker, symbol, isin, trade_datetime, side, quantity, price, fee, currency
+│       - bepaalt hoe de tabel `trades_trade` eruitziet
+│   - Pure beschrijving van data; geen UI
+│
+├── tests.py                       <-- Hier kun je unittests voor deze app zetten
+│   - Bijvoorbeeld: test dat upload werkt
+│
+├── views.py                       <-- Logica voor webpagina's / endpoints
+│   - Hier komen:
+│       - upload_trades(request)  → upload view
+│       - dashboard(request)      → dashboard view
+│   - Ze:
+│       1) halen data op uit models
+│       2) verwerken data
+│       3) geven een HTML-template of JSON terug
+│
+├── urls.py                        <-- Routes voor deze app (maak je zelf)
+│   - Verbindt URL's met views:
+│       /trades/upload/    → upload_trades view
+│       /trades/dashboard/ → dashboard view
+│
+└── templates/
+    └── trades/
+        ├── base.html              <-- Basis layout (navbar, Bootstrap)
+        ├── upload.html            <-- Upload pagina (form voor CSV upload)
+        └── dashboard.html         <-- Dashboard pagina (grafiek met Chart.js)
+
+
+Hoe alles samenwerkt (kort diagram)
+Browser (URL: /trades/dashboard/)
+   ↓
+greenpad_dashboard/urls.py
+   - zegt: "alles wat met /trades/ begint, gaat naar trades.urls"
+   ↓
+trades/urls.py
+   - zegt: "/dashboard/" hoort bij views.dashboard
+   ↓
+trades/views.py (functie 'dashboard')
+   - haalt Trade-data op uit models.py
+   - maakt context (labels, data)
+   - roept template 'trades/dashboard.html' aan
+   ↓
+trades/templates/trades/dashboard.html
+   - render HTML + JavaScript (Chart.js)
+   ↓
+Browser laat je grafiek zien
+
+En voor de admin
+Browser (URL: /admin/trades/trade/)
+   ↓
+Django admin
+   ↓
+gebruikt TradeAdmin (admin.py) + Trade (models.py)
+   ↓
+vult tabel met data uit 'trades_trade' (je database)
