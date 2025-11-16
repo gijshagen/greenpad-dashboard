@@ -18,7 +18,7 @@ trades/                            <-- Django app: feature module "trades"
 │   ├── 0002_*.py                  <-- Latere wijzigingen (bijv. IBKR toegevoegd)
 │   └── 0003_*.py                  <-- Default broker veranderd naar IBKR
 │   - Deze bestanden beschrijven hoe de database moet veranderen
-│   - Worden uitgevoerd met `makemigrations` + `migrate`
+│   - Worden uitgevoerd met `makemigrations` + `migrate`.
 │
 ├── models.py                      <-- Data model (ORM → database tabellen)
 │   - Klasse Trade:
