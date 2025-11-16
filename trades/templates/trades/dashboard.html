@@ -2,5 +2,42 @@
 
 {% block content %}
 <h1>Dashboard</h1>
-<p>Hier komt straks je eerste grafiek met trade-data.</p>
+
+{% if labels %}
+  <h2 class="mt-4">Aantal trades per dag</h2>
+  <canvas id="tradesPerDayChart" width="400" height="200"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById("tradesPerDayChart").getContext("2d");
+    const tradesPerDayChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: {{ labels|safe }},
+        datasets: [{
+          label: "Aantal trades",
+          data: {{ data|safe }},
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              precision: 0  // geen decimalen op de y-as
+            }
+          }
+        }
+      }
+    });
+  </script>
+{% else %}
+  <div class="alert alert-info mt-4">
+    Er zijn nog geen trades gevonden in de database.
+    Upload eerst een IBKR-bestand via de <a href="{% url 'trades:upload_trades' %}">uploadpagina</a>.
+  </div>
+{% endif %}
+
 {% endblock %}

@@ -3,6 +3,8 @@ from datetime import datetime
 import pandas as pd
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.db.models import Count
+from django.db.models.functions import TruncDate
 
 from .models import Trade
 
@@ -128,6 +130,25 @@ def upload_trades(request):
 
 def dashboard(request):
     """
-    Simpele placeholder; in de volgende stap maken we hier de eerste grafiek.
+    Dashboard met een eerste grafiek:
+    - aantal trades per dag
     """
-    return render(request, "trades/dashboard.html")
+
+    # trades groeperen per datum (op basis van trade_datetime)
+    qs = (
+        Trade.objects
+        .annotate(day=TruncDate("trade_datetime"))
+        .values("day")
+        .annotate(trade_count=Count("id"))
+        .order_by("day")
+    )
+
+    labels = [item["day"].strftime("%Y-%m-%d") for item in qs]
+    data = [item["trade_count"] for item in qs]
+
+    context = {
+        "labels": labels,
+        "data": data,
+    }
+
+    return render(request, "trades/dashboard.html", context)
