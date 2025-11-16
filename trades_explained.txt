@@ -76,4 +76,4 @@ Django admin
    ↓
 gebruikt TradeAdmin (admin.py) + Trade (models.py)
    ↓
-vult tabel met data uit 'trades_trade' (je database)
+vult tabel met data uit 'trades_trade' (je database).
