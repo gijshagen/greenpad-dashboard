@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path("", include("home.urls")),                     # <-- homepagina op /
     path("admin/", admin.site.urls),
     path("trades/", include("trades.urls", namespace="trades")),
 ]

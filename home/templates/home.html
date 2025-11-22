@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8" />
+    <title>GreenPad Dashboard</title>
+    <style>
+        :root {
+            --green-dark: #1b4332;
+            --green-main: #2d6a4f;
+            --green-light: #95d5b2;
+            --bg: #f3f5f7;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #e0e4e8;
+            padding: 12px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--green-dark);
+        }
+
+        .logo-circle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--green-main), var(--green-light));
+        }
+
+        .nav-links a {
+            margin-left: 18px;
+            text-decoration: none;
+            color: #444;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-main);
+        }
+
+        .hero {
+            max-width: 900px;
+            margin: 60px auto 40px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 12px;
+            color: var(--green-dark);
+        }
+
+        .hero p.subtitle {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 24px;
+        }
+
+        .hero-actions {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 22px;
+            font-size: 15px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
+        }
+
+        .button-primary {
+            background-color: var(--green-main);
+            color: white;
+            box-shadow: 0 8px 20px rgba(45, 106, 79, 0.35);
+        }
+
+        .button-primary:hover {
+            background-color: var(--green-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(45, 106, 79, 0.4);
+        }
+
+        .button-ghost {
+            background-color: white;
+            color: var(--green-main);
+            border: 1px solid #cbd5df;
+        }
+
+        .button-ghost:hover {
+            background-color: #e9f5ef;
+        }
+
+        .grid {
+            max-width: 1000px;
+            margin: 20px auto 60px;
+            padding: 0 20px 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 20px 22px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            text-align: left;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 18px;
+            color: var(--green-dark);
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            background: #e9f5ef;
+            color: var(--green-main);
+            margin-bottom: 6px;
+        }
+
+        footer {
+            border-top: 1px solid #e0e4e8;
+            padding: 14px 24px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            background: white;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            .hero p.subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-circle"></div>
+        <span>GreenPad Dashboard</span>
+    </div>
+    <div class="nav-links">
+        <a href="/trades/dashboard/">Dashboard</a>
+        <a href="/admin/">Admin</a>
+    </div>
+</header>
+
+<section class="hero">
+    <h1>Inzicht in je trades, elke dag een beetje scherper</h1>
+    <p class="subtitle">
+        GreenPad koppelt je broker-data (IBKR, DeGiro, …) aan marktdata en helpt je
+        jouw eigen strategie echt te begrijpen: welke trades werken, welke niet, en waarom.
+    </p>
+
+    <div class="hero-actions">
+        <a href="/trades/dashboard/" class="button button-primary">
+            Open mijn dashboard
+        </a>
+        <a href="/admin/" class="button button-ghost">
+            Admin omgeving
+        </a>
+    </div>
+</section>
+
+<section class="grid">
+    <div class="card">
+        <span class="chip">Trades uploaden</span>
+        <h3>IBKR / DeGiro exports</h3>
+        <p>
+            Upload eenvoudig je broker-export (CSV/Excel) en zie je posities, P&amp;L
+            en performance terug in één overzichtelijk dashboard.
+        </p>
+    </div>
+
+    <div class="card">
+        <span class="chip">Marktvergelijking</span>
+        <h3>Vergelijk met marktdata</h3>
+        <p>
+            Vergelijk jouw trades straks met indexen, sectoren of individuele tickers.
+            Zo zie je of jij de markt écht verslaat of vooral de golf meepakt.
+        </p>
+    </div>
+
+    <div class="card">
+        <span class="chip">Roadmap</span>
+        <h3>Volgende stap: automatische feeds</h3>
+        <p>
+            De volgende stap is een dagelijkse koppeling met marktdata (zoals Finazon)
+            en automatische synchronisatie met je IBKR-trades.
+        </p>
+    </div>
+</section>
+
+<footer>
+    GreenPad Dashboard – persoonlijke trading analytics • Gebouwd door jou, voor jou.
+</footer>
+
+</body>
+</html>
